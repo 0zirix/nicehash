@@ -38,21 +38,6 @@ module.exports = class Nicehash {
         return str;
     };
 
-    number_format(number, options = {}) {
-        let locale = options.locale || 'fr-FR';
-        let currency = options.currency || 'EUR';
-        let style = options.style || 'currency';
-        let minimumFractionDigits = options.minimumFractionDigits || 2;
-        let maximumFractionDigits = options.maximumFractionDigits || 10;
-
-        return new Intl.NumberFormat(locale, {
-            style,
-            currency,
-            minimumFractionDigits,
-            maximumFractionDigits
-        }).format(number)
-    }
-
     request(options, body = null) {
         return new Promise((resolve, reject) => {
             const socket = https.request(options, handle => {
@@ -83,8 +68,6 @@ module.exports = class Nicehash {
                 let timing = await this.get_time();
                 this.ping = timing.serverTime - (new Date().getTime());
                 this.time = timing.serverTime;
-                console.log('\nServer time:', new Date(this.time).toUTCString());
-                console.log('Time diff:', this.ping + ' ms\n');
             }
 
             let nonce = crypto.randomUUID();
@@ -93,7 +76,7 @@ module.exports = class Nicehash {
 
             return await this.request({
                 host: this.options.url,
-                path: endpoint,
+                path: endpoint + '?' + qs.stringify(query),
                 port: 443,
                 method: method,
                 headers: {
