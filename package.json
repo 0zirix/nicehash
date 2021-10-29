@@ -1,11 +1,14 @@
 {
   "name": "nicehash",
   "version": "1.0.0",
-  "description": "Nicehash api wrapper",
+  "description": "Nicehash API wrapper",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js"
   },
   "author": "Mel Florance <mel.florance@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "dotenv": "^10.0.0"
+  }
 }
